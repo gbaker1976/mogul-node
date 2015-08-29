@@ -1,21 +1,31 @@
-var router = require( './services' );
 var restify = require( 'restify' );
 var net = require( 'net' );
 var fs = require( 'fs' );
-var routerConfig = require( './routers.json' );
-var server = restify.createServer({
-  name: 'API Node',
-  version: '1.0.0'
-});
+var server;
 
-server.use( restify.queryParser() );
-server.use( restify.bodyParser() );
-server.use( router( server, routerConfig ) );
-server.use( restify.gzipResponse() );
+module.exports = function( services, options ){
 
-server.listen( 10001, function () {
-  console.log( '%s listening at %s', server.name, server.url );
-});
+  options = options || {};
+
+  var server = restify.createServer({
+    name: options.serviceName || 'Mogul API Node',
+    version: options.serviceVersion || '1.0.0'
+  });
+
+  server.use( restify.queryParser() );
+  server.use( restify.bodyParser() );
+
+  services && services.forEach(function( service ){
+    service.register( server );
+  });
+
+  server.use( restify.gzipResponse() );
+
+  server.listen( options.port || 10001, function () {
+    console.log( '%s listening at %s', server.name, server.url );
+  });
+
+};
 
 
 // client for handshake/registration
