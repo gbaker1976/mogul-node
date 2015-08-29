@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/gbaker1976/mogul-node",
   "dependencies": {
+    "couchbase": "^2.0.12",
+    "node-uuid": "^1.4.3",
     "restify": "^4.0.0"
   }
 }
