@@ -1,6 +1,8 @@
+var router = require( './services' );
 var restify = require( 'restify' );
 var net = require( 'net' );
 var fs = require( 'fs' );
+var routerConfig = require( './routers.json' );
 var server = restify.createServer({
   name: 'API Node',
   version: '1.0.0'
@@ -8,6 +10,7 @@ var server = restify.createServer({
 
 server.use( restify.queryParser() );
 server.use( restify.bodyParser() );
+server.use( router( server, routerConfig ) );
 server.use( restify.gzipResponse() );
 
 server.listen( 10001, function () {
