@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/gbaker1976/mogul-node/issues"
   },
-  "homepage": "https://github.com/gbaker1976/mogul-node"
+  "homepage": "https://github.com/gbaker1976/mogul-node",
+  "dependencies": {
+    "restify": "^4.0.0"
+  }
 }
