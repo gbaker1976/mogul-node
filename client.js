@@ -1,27 +1,11 @@
 var net = require( 'net' );
+var rax = require( 'rax-api' );
 
-module.exports = function( options ){
+module.exports = function( config, options ){
 
   if ( !options || !options.api || typeof options.api !== 'object' ) {
     return;
   }
 
-  // client for handshake/registration
-  var client = net.connect({ port: 8124 }, function( conn ){
-  	console.log( 'connected to federator' );
-
-    client.write( JSON.stringify( options.api ) );
-  });
-
-  client.on( 'data', function( data ){
-  	if ( 'ACK' === data.toString() ) {
-  		console.log( 'registration acknowledged' );
-  		console.log( 'ending connection' );
-  		client.end();
-  	}
-  });
-
-  client.on( 'end', function(){
-  	console.log( 'connection to federator ended' );
-  });
+  rax( config ).queues.publish( 'API-Reg', options.api );
 };

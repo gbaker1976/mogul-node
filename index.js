@@ -2,11 +2,11 @@ var restify = require( 'restify' );
 var client = require( './client' );
 var server;
 
-module.exports = function( services, options ){
+module.exports = function( services, config, options ){
   options = options || {};
 
   if ( options.api ) {
-    client( options );
+    client( config, options );
   }
 
   var server = restify.createServer({
@@ -28,7 +28,3 @@ module.exports = function( services, options ){
   });
 
 };
-
-function handleSocketData( buf, conn ){
-	console.log( buf.join('') );
-}
