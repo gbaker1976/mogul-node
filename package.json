@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gbaker1976/mogul-node",
   "dependencies": {
+    "node-uuid": "^1.4.3",
     "rax-api": "file:../rax-api",
     "restify": "^4.0.0"
   }
